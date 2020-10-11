@@ -28,7 +28,7 @@ namespace BinaryTreeVisualizer
         {
             InitializeComponent();
 
-            BinaryTree = new Tree(new TreeNode(100, 100, 10), MainCanvas, 100);
+            BinaryTree = new Tree(new TreeNode(Height / 2, 100, 10), MainCanvas, 20);
 
         }
 

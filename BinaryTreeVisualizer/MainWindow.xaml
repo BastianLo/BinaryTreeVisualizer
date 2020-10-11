@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:BinaryTreeVisualizer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        MouseWheel="MainWindow_OnMouseWheel">
+        MouseWheel="MainWindow_OnMouseWheel"
+        WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="229*"/>
@@ -20,8 +21,10 @@
                 Background="Transparent"></Canvas>
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal" Name="PanelAddNode">
-                <TextBox Name="TextBoxNumberInput" Width="50" PreviewTextInput="TextBoxNumberInput_OnPreviewTextInput"></TextBox>
-                <Button Height="50" Width="50" Name="BtnAddNode" Click="BtnAddNode_OnClick">Add Node</Button>
+                <TextBox Name="TextBoxNumberInput" Width="50" PreviewTextInput="TextBoxNumberInput_OnPreviewTextInput" FontSize="20"></TextBox>
+                <Button Height="40" Width="50" Name="BtnAddNode" Click="BtnAddNode_OnClick" >
+                    <TextBlock TextWrapping="Wrap">Add Node</TextBlock>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>
