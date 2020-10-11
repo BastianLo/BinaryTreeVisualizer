@@ -1,0 +1,33 @@
+﻿<Window x:Class="BinaryTreeVisualizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BinaryTreeVisualizer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        MouseWheel="MainWindow_OnMouseWheel">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="229*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Canvas Name="MainCanvas" Grid.Column="0"
+                MouseMove="MainWindow_OnMouseMove"
+                MouseDown="MainWindow_OnMouseDown"
+                Background="Transparent"></Canvas>
+        <StackPanel Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Name="PanelAddNode">
+                <TextBox Name="TextBoxNumberInput" Width="50" PreviewTextInput="TextBoxNumberInput_OnPreviewTextInput"></TextBox>
+                <Button Height="50" Width="50" Name="BtnAddNode" Click="BtnAddNode_OnClick">Add Node</Button>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Name="PanelSearchNodeDepth">
+                <TextBox Name="TextBoxSearchNodeValue" Width="50" PreviewTextInput="TextBoxNumberInput_OnPreviewTextInput"></TextBox>
+                <Button Height="50" Width="50" Name="BtnSearchNodeValueDepth" Click="BtnSearchNodeValueDepth_OnClick">Search Value</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
