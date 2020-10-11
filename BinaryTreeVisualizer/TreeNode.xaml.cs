@@ -26,13 +26,19 @@ namespace BinaryTreeVisualizer
         public TreeNode ChildLeft;
         public TreeNode ChildRight;
 
-        public TreeNode(double posX = 0, double posY = 0, double value = 0)
+        public Line ConnectionLeft;
+        public Line ConnectionRight;
+
+        public Canvas DrawCanvas;
+
+        public TreeNode(ref Canvas drawCanvas, double posX = 0, double posY = 0, double value = 0)
         {
             InitializeComponent();
             Canvas.SetLeft(this, posX);
             Canvas.SetTop(this, posY);
             Value = value;
             TxtBox.Text = value.ToString();
+            DrawCanvas = drawCanvas;
         }
 
         public static int Clamp(int value, int min, int max) => (value < min) ? min : (value > max) ? max : value;
@@ -57,6 +63,26 @@ namespace BinaryTreeVisualizer
             return Math.Max(leftDepth, rightDepth) + 1;
         }
 
+        public void ReconnectNode(ref Canvas drawCanvas)
+        {
+            if (ConnectionLeft != null)
+            {
+                ConnectionLeft.X1 = GetX() + 25;
+                ConnectionLeft.Y1 = GetY() + 50;
+                ConnectionLeft.X2 = ChildLeft.GetX() + 25;
+                ConnectionLeft.Y2 = ChildLeft.GetY();
+                ChildLeft.ReconnectNode(ref drawCanvas);
+            }
+            if (ConnectionRight != null)
+            {
+                ConnectionRight.X1 = GetX() + 25;
+                ConnectionRight.Y1 = GetY() + 50;
+                ConnectionRight.X2 = ChildRight.GetX() + 25;
+                ConnectionRight.Y2 = ChildRight.GetY();
+                ChildRight.ReconnectNode(ref drawCanvas);
+            }
+        }
+
         public int SearchNodeDepth(TreeNode node)
         {
             var leftDepth = 0;
@@ -64,11 +90,6 @@ namespace BinaryTreeVisualizer
 
             if (this == node)
                 return 1;
-            /*
-            if (ChildRight == node)
-                return 1;
-            if (ChildLeft == node)
-                return 1;*/
 
             if (ChildLeft != null)
             {
@@ -85,7 +106,6 @@ namespace BinaryTreeVisualizer
             if (rightDepth > 0)
                 return rightDepth + 1;
             return 0;
-            //return Math.Max(leftDepth, rightDepth) + 1;
 
         }
 
@@ -125,6 +145,20 @@ namespace BinaryTreeVisualizer
                 {
                     ChildLeft = node;
                     node.SetPosition(GetX() - 100, GetY() + 100);
+
+                    ConnectionLeft = new Line
+                    {
+                        X1 = GetX() + 25,
+                        X2 = ChildLeft.GetX() + 25,
+                        Y1 = GetY() + 50,
+                        Y2 = ChildLeft.GetY(),
+                        Stroke = Brushes.Black,
+                        StrokeThickness = 1
+                    };
+                    Canvas.SetLeft(ConnectionLeft, 0);
+                    Canvas.SetTop(ConnectionLeft, 0);
+                    DrawCanvas.Children.Add(ConnectionLeft);
+
                 }
                 else
                     ChildLeft.Append(node);
@@ -135,6 +169,18 @@ namespace BinaryTreeVisualizer
                 {
                     ChildRight = node;
                     node.SetPosition(GetX() + 100, GetY() + 100);
+                    ConnectionRight = new Line
+                    {
+                        X1 = GetX() + 25,
+                        X2 = ChildRight.GetX() - 25,
+                        Y1 = GetY() + 50,
+                        Y2 = ChildRight.GetY(),
+                        Stroke = Brushes.Black,
+                        StrokeThickness = 1
+                    };
+                    Canvas.SetLeft(ConnectionRight, 0);
+                    Canvas.SetTop(ConnectionRight, 0);
+                    DrawCanvas.Children.Add(ConnectionRight);
                 }
                 else
                     ChildRight.Append(node);
@@ -153,7 +199,7 @@ namespace BinaryTreeVisualizer
             Canvas.SetTop(this, y);
         }
 
-        public double GetX() => (double)this.GetValue(Canvas.LeftProperty);
-        public double GetY() => (double)this.GetValue(Canvas.TopProperty);
+        public double GetX() => (double)GetValue(Canvas.LeftProperty);
+        public double GetY() => (double)GetValue(Canvas.TopProperty);
     }
 }

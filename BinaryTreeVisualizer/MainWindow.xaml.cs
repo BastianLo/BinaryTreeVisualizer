@@ -28,7 +28,7 @@ namespace BinaryTreeVisualizer
         {
             InitializeComponent();
 
-            BinaryTree = new Tree(new TreeNode(Height / 2, 100, 10), MainCanvas, 20);
+            BinaryTree = new Tree(MainCanvas, 20);
 
         }
 
@@ -44,9 +44,14 @@ namespace BinaryTreeVisualizer
 
                 foreach (UIElement shape in MainCanvas.Children)
                 {
-                    Canvas.SetLeft(shape, (double)shape.GetValue(Canvas.LeftProperty) - MousePosPressedPreviously.X + MousePosPressed.X);
-                    Canvas.SetTop(shape, (double)shape.GetValue(Canvas.TopProperty) - MousePosPressedPreviously.Y + MousePosPressed.Y);
+                    if (shape.GetType() != typeof(Line))
+                    {
+                        Canvas.SetLeft(shape, (double)shape.GetValue(Canvas.LeftProperty) - MousePosPressedPreviously.X + MousePosPressed.X);
+                        Canvas.SetTop(shape, (double)shape.GetValue(Canvas.TopProperty) - MousePosPressedPreviously.Y + MousePosPressed.Y);
+                    }
                 }
+
+                BinaryTree.ReconnectNodes();
 
                 MousePosPressedPreviously = MousePosPressed;
                 MousePosPressed = e.GetPosition(MainCanvas);
@@ -61,7 +66,11 @@ namespace BinaryTreeVisualizer
 
         private void BtnAddNode_OnClick(object sender, RoutedEventArgs e)
         {
-
+            if (BinaryTree.Root == null)
+            {
+                BinaryTree.Root = new TreeNode(ref MainCanvas, Width / 2, 100, Convert.ToDouble(TextBoxNumberInput.Text));
+                return;
+            }
 
             try
             {

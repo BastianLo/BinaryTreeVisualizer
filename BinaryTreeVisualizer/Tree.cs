@@ -5,7 +5,24 @@ namespace BinaryTreeVisualizer
 {
     public class Tree
     {
-        public readonly TreeNode Root;
+        private TreeNode _root;
+        public TreeNode Root
+        {
+            get
+                => _root;
+            set
+            {
+                if (_root == null)
+                {
+                    _root = value;
+                }
+
+                if (_root != null)
+                {
+                    drawCanvas.Children.Add(_root);
+                }
+            }
+        }
         private Canvas drawCanvas;
         private int _treeDensity;
 
@@ -22,18 +39,17 @@ namespace BinaryTreeVisualizer
         }
 
 
-        public Tree(TreeNode root, Canvas drawCanvas, int TreeDensity)
+        public Tree(Canvas drawCanvas, int TreeDensity, TreeNode root = null)
         {
             Root = root;
             this.drawCanvas = drawCanvas;
-            drawCanvas.Children.Add(Root);
             this.TreeDensity = TreeDensity;
         }
 
         public void AddNode(double value)
         {
-            var node = new TreeNode(value: value);
-            Root.Append(node);
+            var node = new TreeNode(ref drawCanvas, value: value);
+            Root?.Append(node);
             drawCanvas.Children.Add(node);
             ReFitNodes();
         }
@@ -50,12 +66,18 @@ namespace BinaryTreeVisualizer
 
         public IEnumerable<TreeNode> TraversePreOrder()
         {
-            return Root.TraversePreOrder(Root);
+            return Root?.TraversePreOrder(Root);
         }
 
         public void ReFitNodes()
         {
-            Root.ReFitNodes(GetDepth() - 1, TreeDensity);
+            Root?.ReFitNodes(GetDepth() - 1, TreeDensity);
+            ReconnectNodes();
+        }
+
+        public void ReconnectNodes()
+        {
+            Root?.ReconnectNode(ref drawCanvas);
         }
     }
 }
