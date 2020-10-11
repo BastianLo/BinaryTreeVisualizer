@@ -81,10 +81,6 @@ namespace BinaryTreeVisualizer
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void BtnSearchNodeValueDepth_OnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void MainWindow_OnMouseWheel(object sender, MouseWheelEventArgs e)
         {

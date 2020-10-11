@@ -23,11 +23,6 @@
                 <TextBox Name="TextBoxNumberInput" Width="50" PreviewTextInput="TextBoxNumberInput_OnPreviewTextInput"></TextBox>
                 <Button Height="50" Width="50" Name="BtnAddNode" Click="BtnAddNode_OnClick">Add Node</Button>
             </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Name="PanelSearchNodeDepth">
-                <TextBox Name="TextBoxSearchNodeValue" Width="50" PreviewTextInput="TextBoxNumberInput_OnPreviewTextInput"></TextBox>
-                <Button Height="50" Width="50" Name="BtnSearchNodeValueDepth" Click="BtnSearchNodeValueDepth_OnClick">Search Value</Button>
-            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
