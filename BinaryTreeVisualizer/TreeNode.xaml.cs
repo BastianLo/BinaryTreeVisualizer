@@ -41,6 +41,33 @@ namespace BinaryTreeVisualizer
             DrawCanvas = drawCanvas;
         }
 
+        public void DistributeNodes(List<double> values)
+        {
+            var leftValues = values.GetRange(0, values.Count / 2);
+            var rightValues = values.GetRange(values.Count / 2 + 1, values.Count - (values.Count / 2 + 1));
+            /*
+            Console.WriteLine(leftValues.First());
+            Console.WriteLine(Value);
+            Console.WriteLine(rightValues.First());*/
+
+            if (leftValues.Count > 0)
+            {
+                Append(new TreeNode(ref DrawCanvas, value: leftValues[leftValues.Count / 2]));
+                if (leftValues.Count > 1)
+                    ChildLeft.DistributeNodes(leftValues);
+            }
+
+            if (rightValues.Count > 0)
+            {
+                Append(new TreeNode(ref DrawCanvas, value: rightValues[rightValues.Count / 2]));
+                if (rightValues.Count > 1)
+                    ChildRight.DistributeNodes(rightValues);
+            }
+
+
+
+        }
+
         public static int Clamp(int value, int min, int max) => (value < min) ? min : (value > max) ? max : value;
 
         public int GetDepth()
@@ -158,6 +185,8 @@ namespace BinaryTreeVisualizer
                     Canvas.SetLeft(ConnectionLeft, 0);
                     Canvas.SetTop(ConnectionLeft, 0);
                     DrawCanvas.Children.Add(ConnectionLeft);
+                    DrawCanvas.Children.Add(node);
+                    ReconnectNode(ref DrawCanvas);
 
                 }
                 else
@@ -181,6 +210,8 @@ namespace BinaryTreeVisualizer
                     Canvas.SetLeft(ConnectionRight, 0);
                     Canvas.SetTop(ConnectionRight, 0);
                     DrawCanvas.Children.Add(ConnectionRight);
+                    DrawCanvas.Children.Add(node);
+                    ReconnectNode(ref DrawCanvas);
                 }
                 else
                     ChildRight.Append(node);

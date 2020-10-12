@@ -20,12 +20,16 @@
                 MouseDown="MainWindow_OnMouseDown"
                 Background="Transparent"></Canvas>
         <StackPanel Grid.Column="1">
+
             <StackPanel Orientation="Horizontal" Name="PanelAddNode">
                 <TextBox Name="TextBoxNumberInput" Width="50" PreviewTextInput="TextBoxNumberInput_OnPreviewTextInput" FontSize="20"></TextBox>
                 <Button Height="40" Width="50" Name="BtnAddNode" Click="BtnAddNode_OnClick" >
                     <TextBlock TextWrapping="Wrap">Add Node</TextBlock>
                 </Button>
             </StackPanel>
+
+            <Button Height="40" Width="100" Name="BtnRebalanceTree" Click="BtnRebalanceTree_OnClick">Rebalance Tree</Button>
+
         </StackPanel>
     </Grid>
 </Window>

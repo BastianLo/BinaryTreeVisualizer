@@ -68,7 +68,15 @@ namespace BinaryTreeVisualizer
         {
             if (BinaryTree.Root == null)
             {
-                BinaryTree.Root = new TreeNode(ref MainCanvas, Width / 2, 100, Convert.ToDouble(TextBoxNumberInput.Text));
+                try
+                {
+                    BinaryTree.Root = new TreeNode(ref MainCanvas, Width / 2, 100, Convert.ToDouble(TextBoxNumberInput.Text));
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Invalid Number");
+                }
+                TextBoxNumberInput.Text = "";
                 return;
             }
 
@@ -81,7 +89,7 @@ namespace BinaryTreeVisualizer
                 Console.WriteLine("Invalid Number");
             }
 
-            BinaryTree.GetDepth();
+            TextBoxNumberInput.Text = "";
         }
 
         private void TextBoxNumberInput_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -103,6 +111,11 @@ namespace BinaryTreeVisualizer
                 BinaryTree.TreeDensity -= 10;
                 BinaryTree.ReFitNodes();
             }
+        }
+
+        private void BtnRebalanceTree_OnClick(object sender, RoutedEventArgs e)
+        {
+            BinaryTree.RebalanceTree();
         }
     }
 }

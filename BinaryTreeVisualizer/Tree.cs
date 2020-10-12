@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 
 namespace BinaryTreeVisualizer
@@ -11,11 +13,11 @@ namespace BinaryTreeVisualizer
             get
                 => _root;
             set
-            {
-                if (_root == null)
-                {
-                    _root = value;
-                }
+            {/*
+                if (_root != null)
+                    drawCanvas.Children.Remove(_root);*/
+
+                _root = value;
 
                 if (_root != null)
                 {
@@ -46,11 +48,26 @@ namespace BinaryTreeVisualizer
             this.TreeDensity = TreeDensity;
         }
 
+        public void RebalanceTree()
+        {
+            if (Root == null)
+                return;
+
+            drawCanvas.Children.RemoveRange(0, drawCanvas.Children.Count);
+
+            var nodes = TraversePreOrder().ToList();
+            nodes = nodes.OrderBy(c => c.Value).ToList();
+            Root = new TreeNode(ref drawCanvas, drawCanvas.ActualWidth / 2, 100, nodes[nodes.Count / 2].Value);
+            var values = nodes.Select(c => c.Value).ToList();
+            Root.DistributeNodes(values);
+
+            ReFitNodes();
+        }
+
         public void AddNode(double value)
         {
             var node = new TreeNode(ref drawCanvas, value: value);
             Root?.Append(node);
-            drawCanvas.Children.Add(node);
             ReFitNodes();
         }
 
