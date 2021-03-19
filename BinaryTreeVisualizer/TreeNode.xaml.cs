@@ -232,5 +232,31 @@ namespace BinaryTreeVisualizer
 
         public double GetX() => (double)GetValue(Canvas.LeftProperty);
         public double GetY() => (double)GetValue(Canvas.TopProperty);
+
+        public void invert()
+        {
+            TreeNode newLeft = null;
+            TreeNode newRight = null;
+            Line newLeftConnection = null;
+            Line newRightConnection = null;
+            if (ChildLeft != null)
+            {
+                newRight = ChildLeft;
+                newRightConnection = ConnectionLeft;
+            }
+            if(ChildRight != null)
+            {
+                newLeft = ChildRight;
+                newLeftConnection = ConnectionRight;
+            }
+            ChildLeft = newLeft;
+            ChildRight = newRight;
+            ConnectionLeft = newLeftConnection;
+            ConnectionRight = newRightConnection;
+            if(ChildLeft != null)
+                ChildLeft.invert();
+            if(ChildRight != null)
+                ChildRight.invert();
+        }
     }
 }

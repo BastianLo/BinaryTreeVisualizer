@@ -29,6 +29,7 @@
             </StackPanel>
 
             <Button Height="40" Width="100" Name="BtnRebalanceTree" Click="BtnRebalanceTree_OnClick">Rebalance Tree</Button>
+            <Button Height="40" Width="100" Name="BtnInvert" Click="BtnInvert_Click">Invert Tree</Button>
 
         </StackPanel>
     </Grid>

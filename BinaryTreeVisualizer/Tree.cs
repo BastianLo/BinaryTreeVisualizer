@@ -96,5 +96,10 @@ namespace BinaryTreeVisualizer
         {
             Root?.ReconnectNode(ref drawCanvas);
         }
+        public void Invert()
+        {
+            Root?.invert();
+            ReFitNodes();
+        }
     }
 }

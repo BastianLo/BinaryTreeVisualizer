@@ -117,5 +117,10 @@ namespace BinaryTreeVisualizer
         {
             BinaryTree.RebalanceTree();
         }
+
+        private void BtnInvert_Click(object sender, RoutedEventArgs e)
+        {
+            BinaryTree.Invert();
+        }
     }
 }
